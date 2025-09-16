@@ -5,11 +5,15 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Install system dependencies required for audio processing and yt-dlp
+# Combine apt operations for better layer efficiency
 RUN apt-get update && apt-get install -y \
     ffmpeg \
     git \
     curl \
-    && rm -rf /var/lib/apt/lists/*
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
 
 # Create non-root user for security
 RUN useradd --create-home --shell /bin/bash mixsync && \
@@ -18,9 +22,13 @@ RUN useradd --create-home --shell /bin/bash mixsync && \
 # Copy requirements first for better Docker layer caching
 COPY requirements.txt .
 
-# Install Python dependencies
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+# Install Python dependencies with optimizations
+# Install lighter packages first, then heavy ones
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install --upgrade pip && \
+    pip install --no-deps fastapi uvicorn python-dotenv aiofiles jinja2 python-multipart websockets requests colorama starlette aiosqlite mutagen && \
+    pip install spotipy yt-dlp && \
+    pip install librosa scipy
 
 # Copy application code
 COPY --chown=mixsync:mixsync . .
