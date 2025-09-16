@@ -42,7 +42,17 @@ A powerful and modern audio fetcher application with both **automated playlist s
 
 ## 🚀 Quick Start
 
-### 1. Installation
+### Option 1: Docker (Recommended)
+
+For containerized deployment with Docker, see the complete **[Docker Guide](DOCKER.md)** which covers:
+
+- GitHub Container Registry usage
+- Docker Compose setup
+- Local building
+- Development environment
+- Troubleshooting and maintenance
+
+### Option 2: Traditional Installation
 
 ```bash
 # Clone the repository
@@ -102,6 +112,12 @@ pip install -r requirements.txt
 4. Use just the ID part (after the last colon) in your `.env` file: `37i9dQZF1DXcBWIGoYBM5M`
 
 ### 5. Run the Application
+
+#### Docker
+
+See the **[Docker Guide](DOCKER.md)** for complete Docker setup instructions.
+
+#### Traditional
 
 ```bash
 python main.py
@@ -287,11 +303,17 @@ mixsync/
 
 ### Prerequisites
 
-- Python 3.8 or higher
-- FFmpeg (for audio conversion)
+- Docker and Docker Compose (for containerized development)
+- OR Python 3.8+ and FFmpeg (for traditional development)
 - Git
 
 ### Setting Up Development Environment
+
+#### Docker Development (Recommended)
+
+See the **[Docker Guide](DOCKER.md)** for complete Docker development setup with live reload, debugging, and troubleshooting.
+
+#### Traditional Development
 
 ```bash
 # Clone and setup
@@ -347,10 +369,21 @@ The web interface provides several API endpoints:
 - Check that port 3000 is not in use by another application
 - Try changing `WEB_PORT` in your `.env` file (add `WEB_PORT=8000` for example)
 - Ensure your firewall allows connections to the port
+- For Docker: Check that the port mapping is correct (`-p 3000:3000`)
+
+**Docker Issues**
+
+For Docker-specific troubleshooting, see the **[Docker Guide](DOCKER.md)** which covers common container issues, networking, permissions, and debugging.
 
 ### Logs
 
 Check the application logs for detailed error information:
+
+#### Docker Logs
+
+See the **[Docker Guide](DOCKER.md)** for complete Docker logging instructions.
+
+#### Traditional Logs
 
 - Console output shows real-time status
 - `audio_fetcher.log` contains detailed logs (if file logging is enabled)

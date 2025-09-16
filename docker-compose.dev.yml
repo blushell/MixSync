@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  mixsync-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mixsync-dev
+    ports:
+      - '3000:3000'
+    environment:
+      # Required Spotify API credentials (set these in .env file)
+      - SPOTIPY_CLIENT_ID=${SPOTIPY_CLIENT_ID}
+      - SPOTIPY_CLIENT_SECRET=${SPOTIPY_CLIENT_SECRET}
+      - SPOTIPY_REDIRECT_URI=${SPOTIPY_REDIRECT_URI:-http://127.0.0.1:8888/callback}
+
+      # Playlist configuration
+      - SPOTIFY_PLAYLIST_ID=${SPOTIFY_PLAYLIST_ID}
+
+      # Application settings
+      - POLL_INTERVAL_SECONDS=${POLL_INTERVAL_SECONDS:-30}
+      - DOWNLOAD_PATH=/app/downloads
+      - MAX_RECENT_DOWNLOADS=${MAX_RECENT_DOWNLOADS:-10}
+      - ENABLE_FILE_LOGGING=${ENABLE_FILE_LOGGING:-true}
+
+      # Metadata settings
+      - ENABLE_METADATA_TAGGING=${ENABLE_METADATA_TAGGING:-true}
+      - ENABLE_BPM_DETECTION=${ENABLE_BPM_DETECTION:-true}
+      - DEFAULT_GENRE=${DEFAULT_GENRE:-Electronic}
+
+      # Web server settings
+      - WEB_HOST=0.0.0.0
+      - WEB_PORT=3000
+
+      # Development settings
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    volumes:
+      # Mount source code for development (live reload)
+      - .:/app
+      # Persist downloads
+      - ./downloads:/app/downloads
+      # Persist logs
+      - ./logs:/app/logs
+      # Persist database
+      - ./data:/app/data
+    env_file:
+      - .env
+    restart: unless-stopped
+    command:
+      [
+        'python',
+        '-m',
+        'uvicorn',
+        'web.app:app',
+        '--host',
+        '0.0.0.0',
+        '--port',
+        '3000',
+        '--reload',
+      ]
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
