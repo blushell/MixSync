@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Download History - MixSync</title>
+		<link rel="stylesheet" href="/static/style.css" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+		/>
+	</head>
+	<body class="history-page">
+		<div class="container">
+			<header class="header">
+				<div class="header-content">
+					<h1 class="title">
+						<i class="fas fa-history"></i>
+						Download History
+					</h1>
+					<p class="subtitle">Complete record of all your downloads</p>
+					<div class="header-nav">
+						<a href="/" class="btn btn-secondary">
+							<i class="fas fa-home"></i>
+							Back to Home
+						</a>
+					</div>
+				</div>
+			</header>
+
+			<main class="main">
+				<!-- Statistics Section -->
+				<section class="stats-section">
+					<div class="card">
+						<h2 class="section-title">
+							<i class="fas fa-chart-bar"></i>
+							Statistics
+						</h2>
+						<div class="stats-grid" id="statsGrid">
+							<div class="loading">
+								<i class="fas fa-spinner fa-spin"></i>
+								Loading statistics...
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Search and Filters -->
+				<section class="filters-section">
+					<div class="card">
+						<h3 class="section-title">
+							<i class="fas fa-filter"></i>
+							Search & Filter
+						</h3>
+						<div class="filters-container">
+							<div class="search-box">
+								<input
+									type="text"
+									id="searchInput"
+									class="form-input"
+									placeholder="Search by filename, artist, or track..."
+								/>
+								<button class="btn btn-primary" id="searchBtn">
+									<i class="fas fa-search"></i>
+									Search
+								</button>
+								<button class="btn btn-secondary" id="clearSearchBtn">
+									<i class="fas fa-times"></i>
+									Clear
+								</button>
+							</div>
+							<div class="filter-controls">
+								<select id="statusFilter" class="form-select">
+									<option value="">All Status</option>
+									<option value="completed">Completed</option>
+									<option value="failed">Failed</option>
+									<option value="processing">Processing</option>
+								</select>
+								<select id="sourceFilter" class="form-select">
+									<option value="">All Sources</option>
+									<option value="playlist">Playlist Sync</option>
+									<option value="manual">Manual Download</option>
+								</select>
+								<button class="btn btn-secondary" id="refreshBtn">
+									<i class="fas fa-refresh"></i>
+									Refresh
+								</button>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Download History Table -->
+				<section class="history-section">
+					<div class="card">
+						<h3 class="section-title">
+							<i class="fas fa-list"></i>
+							Download History
+							<span class="history-count" id="historyCount"></span>
+						</h3>
+						<div class="history-container">
+							<div class="loading" id="historyLoading">
+								<i class="fas fa-spinner fa-spin"></i>
+								Loading download history...
+							</div>
+							<div
+								class="history-table-container"
+								id="historyTableContainer"
+								style="display: none"
+							>
+								<table class="history-table" id="historyTable">
+									<thead>
+										<tr>
+											<th>Filename</th>
+											<th>Artist</th>
+											<th>Track</th>
+											<th>Source</th>
+											<th>Status</th>
+											<th>Size</th>
+											<th>Downloaded</th>
+										</tr>
+									</thead>
+									<tbody id="historyTableBody"></tbody>
+								</table>
+							</div>
+							<div
+								class="pagination-container"
+								id="paginationContainer"
+								style="display: none"
+							>
+								<button class="btn btn-secondary" id="prevPageBtn" disabled>
+									<i class="fas fa-chevron-left"></i>
+									Previous
+								</button>
+								<span class="page-info" id="pageInfo">Page 1 of 1</span>
+								<button class="btn btn-secondary" id="nextPageBtn" disabled>
+									Next
+									<i class="fas fa-chevron-right"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</section>
+			</main>
+
+			<footer class="footer">
+				<p>
+					&copy; 2025 MixSync. Download responsibly and respect copyright laws.
+				</p>
+			</footer>
+		</div>
+
+		<!-- Toast Notifications -->
+		<div class="toast-container" id="toastContainer"></div>
+
+		<script src="/static/history.js"></script>
+	</body>
+</html>

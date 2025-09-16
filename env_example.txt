@@ -1,0 +1,22 @@
+# Spotify API Configuration
+SPOTIPY_CLIENT_ID=your_spotify_client_id_here
+SPOTIPY_CLIENT_SECRET=your_spotify_client_secret_here
+SPOTIPY_REDIRECT_URI=http://127.0.0.1:8888/callback
+
+# Playlist Configuration
+SPOTIFY_PLAYLIST_ID=your_playlist_id_here
+
+# Application Settings (Optional - smart polling enabled by default)
+# POLL_INTERVAL_SECONDS=30
+DOWNLOAD_PATH=./downloads
+# MAX_RECENT_DOWNLOADS=10
+# ENABLE_FILE_LOGGING=true
+
+# Metadata Settings (Optional)
+# ENABLE_METADATA_TAGGING=true
+# ENABLE_BPM_DETECTION=true
+# DEFAULT_GENRE=Electronic
+
+# Web Server Configuration (Optional - defaults to localhost:3000)
+# WEB_HOST=localhost
+# WEB_PORT=3000

@@ -1,0 +1,23 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Database
+*.db
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.*
+
+# Spotify cache
+.spotify_cache
+
+# Processed tracks
+.processed_tracks.json
+
+# Downloads
+downloads/*

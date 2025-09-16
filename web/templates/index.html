@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>MixSync - Download Audio from Any Platform</title>
+		<link rel="stylesheet" href="/static/style.css" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+		/>
+	</head>
+	<body>
+		<div class="container">
+			<header class="header">
+				<div class="header-content">
+					<h1 class="title">
+						<i class="fas fa-music"></i>
+						MixSync
+					</h1>
+					<p class="subtitle">
+						Download audio from YouTube, SoundCloud, and 1000+ other platforms
+					</p>
+					<div class="header-nav">
+						<a href="/history" class="btn btn-secondary">
+							<i class="fas fa-history"></i>
+							View All Downloads
+						</a>
+					</div>
+				</div>
+			</header>
+
+			<main class="main">
+				<!-- Download Form -->
+				<section class="download-section">
+					<div class="card">
+						<h2 class="section-title">
+							<i class="fas fa-download"></i>
+							Download Audio
+						</h2>
+
+						<form id="downloadForm" class="download-form">
+							<div class="form-group">
+								<label for="url" class="form-label">
+									<i class="fas fa-link"></i>
+									Media URL
+								</label>
+								<input
+									type="url"
+									id="url"
+									name="url"
+									class="form-input"
+									placeholder="https://www.youtube.com/watch?v=..."
+									required
+								/>
+								<small class="form-help">
+									Paste any media URL from supported platforms
+								</small>
+							</div>
+
+							<div class="form-group">
+								<label for="filename" class="form-label">
+									<i class="fas fa-file-audio"></i>
+									Custom Filename (Optional)
+								</label>
+								<input
+									type="text"
+									id="filename"
+									name="filename"
+									class="form-input"
+									placeholder="My Awesome Song"
+								/>
+								<small class="form-help">
+									Leave empty to use the original title (cleaned automatically)
+								</small>
+							</div>
+
+							<button type="submit" class="btn btn-primary" id="downloadBtn">
+								<i class="fas fa-download"></i>
+								Download Audio
+							</button>
+						</form>
+					</div>
+				</section>
+
+				<!-- Progress Section -->
+				<section
+					class="progress-section"
+					id="progressSection"
+					style="display: none"
+				>
+					<div class="card">
+						<h3 class="section-title">
+							<i class="fas fa-clock"></i>
+							Download Progress
+						</h3>
+
+						<div class="progress-container">
+							<div class="progress-info">
+								<span class="progress-filename" id="progressFilename"
+									>Preparing download...</span
+								>
+								<span class="progress-status" id="progressStatus"
+									>Starting</span
+								>
+							</div>
+
+							<div class="progress-bar-container">
+								<div class="progress-bar" id="progressBar"></div>
+							</div>
+
+							<div class="progress-details">
+								<span class="progress-percentage" id="progressPercentage"
+									>0%</span
+								>
+								<span class="progress-speed" id="progressSpeed"></span>
+								<span class="progress-eta" id="progressEta"></span>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Downloads History -->
+				<section class="history-section">
+					<div class="card">
+						<h3 class="section-title">
+							<i class="fas fa-history"></i>
+							Recent Downloads
+							<button class="btn btn-secondary btn-small" id="refreshBtn">
+								<i class="fas fa-refresh"></i>
+								Refresh
+							</button>
+						</h3>
+
+						<div class="downloads-list" id="downloadsList">
+							<div class="loading" id="downloadsLoading">
+								<i class="fas fa-spinner fa-spin"></i>
+								Loading downloads...
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Supported Platforms -->
+				<section class="platforms-section">
+					<div class="card">
+						<h3 class="section-title">
+							<i class="fas fa-globe"></i>
+							Supported Platforms
+						</h3>
+
+						<div class="platforms-grid" id="platformsGrid">
+							<div class="loading">
+								<i class="fas fa-spinner fa-spin"></i>
+								Loading supported platforms...
+							</div>
+						</div>
+					</div>
+				</section>
+			</main>
+
+			<footer class="footer">
+				<p>
+					&copy; 2025 MixSync. Download responsibly and respect copyright laws.
+				</p>
+			</footer>
+		</div>
+
+		<!-- Toast Notifications -->
+		<div class="toast-container" id="toastContainer"></div>
+
+		<script src="/static/app.js"></script>
+	</body>
+</html>
