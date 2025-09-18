@@ -40,93 +40,17 @@ A powerful and modern audio fetcher application with both **automated playlist s
 - **Automatic Metadata Tagging**: Sets artist, title, album, and genre tags on downloaded files
 - **Smart Filename Parsing**: Extracts metadata from filenames when Spotify info isn't available
 
-## 🚀 Quick Start
+## Quick Start
 
-### Option 1: Docker (Recommended)
+### Local Development
 
-For containerized deployment with Docker, see the complete **[Docker Guide](DOCKER.md)** which covers:
+1. Install dependencies: `pip install -r requirements.txt`
+2. Copy and configure environment: `cp env_example.txt .env` and edit with your Spotify credentials
+3. Run the application: `python main.py`
 
-- GitHub Container Registry usage
-- Docker Compose setup
-- Local building
-- Development environment
-- Troubleshooting and maintenance
+### Docker
 
-### Option 2: Traditional Installation
-
-```bash
-# Clone the repository
-git clone <repository-url>
-cd mixsync
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-### 2. Spotify API Setup
-
-1. Go to [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
-2. Create a new app
-3. Get your `Client ID` and `Client Secret`
-4. Add `http://127.0.0.1:8888/callback` to your app's redirect URIs
-
-### 3. Configuration
-
-1. Copy the example environment file:
-
-   ```bash
-   cp env_example.txt .env
-   ```
-
-2. Edit `.env` with your credentials:
-
-   ```env
-   # Spotify API Configuration
-   SPOTIPY_CLIENT_ID=your_spotify_client_id_here
-   SPOTIPY_CLIENT_SECRET=your_spotify_client_secret_here
-   SPOTIPY_REDIRECT_URI=http://127.0.0.1:8888/callback
-
-   # Playlist Configuration
-   SPOTIFY_PLAYLIST_ID=your_playlist_id_here
-
-   # Application Settings (Optional - smart polling enabled by default)
-   # POLL_INTERVAL_SECONDS=30
-   DOWNLOAD_PATH=./downloads
-   # MAX_RECENT_DOWNLOADS=10
-   # ENABLE_FILE_LOGGING=true
-
-   # Metadata Settings (Optional)
-   # ENABLE_METADATA_TAGGING=true
-   # DEFAULT_GENRE=Electronic
-
-    # Web Server Configuration (Optional - defaults to localhost:3000)
-    # WEB_HOST=localhost
-    # WEB_PORT=3000
-   ```
-
-### 4. Get Your Playlist ID
-
-1. Open Spotify and go to your playlist
-2. Click "Share" → "Copy Spotify URI"
-3. The URI looks like: `spotify:playlist:37i9dQZF1DXcBWIGoYBM5M`
-4. Use just the ID part (after the last colon) in your `.env` file: `37i9dQZF1DXcBWIGoYBM5M`
-
-### 5. Run the Application
-
-#### Docker
-
-See the **[Docker Guide](DOCKER.md)** for complete Docker setup instructions.
-
-#### Traditional
-
-```bash
-python main.py
-```
-
-The application will start both services:
-
-- **Web Interface**: Available at `http://localhost:3000`
-- **Playlist Sync**: Automatically monitoring your Spotify playlist
+For containerized deployment, see [DOCKER.md](DOCKER.md) for setup instructions, including Docker Compose and GitHub Container Registry integration.
 
 ## 📖 How It Works
 
