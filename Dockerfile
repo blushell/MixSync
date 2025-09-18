@@ -3,9 +3,19 @@ FROM python:3.12-slim
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies for Python packages and audio processing
 RUN apt-get update && apt-get install -y \
     ffmpeg \
+    build-essential \
+    gcc \
+    g++ \
+    gfortran \
+    libblas-dev \
+    liblapack-dev \
+    libsndfile1-dev \
+    libportaudio2 \
+    libportaudiocpp0 \
+    portaudio19-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements and install Python dependencies
