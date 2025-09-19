@@ -1,9 +1,0 @@
-**/__pycache__
-**/.*.pyc
-**/.env
-**/audio_fetcher.db
-**/downloads/
-**/.git
-**/.DS_Store
-**/venv/
-**/.pytest_cache/

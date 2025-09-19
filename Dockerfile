@@ -1,40 +1,29 @@
-FROM python:3.12-slim
+# Use a lightweight Python image
+FROM python:3.11-slim
+
+# Install system dependencies (ffmpeg + build tools)
+RUN apt-get update && apt-get install -y --no-install-recommends     ffmpeg     build-essential     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies for Python packages and audio processing
-RUN apt-get update && apt-get install -y \
-    ffmpeg \
-    build-essential \
-    gcc \
-    g++ \
-    gfortran \
-    libblas-dev \
-    liblapack-dev \
-    libsndfile1-dev \
-    libportaudio2 \
-    libportaudiocpp0 \
-    portaudio19-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy requirements and install Python dependencies
+# Copy requirements first (to leverage Docker cache)
 COPY requirements.txt .
+
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
+# Copy the rest of the project
 COPY . .
 
-# Create necessary directories
-RUN mkdir -p /app/downloads && \
-    chmod -R 755 /app/downloads
+# Create downloads folder if not already present
+RUN mkdir -p /app/downloads
 
-# Expose port
-EXPOSE 3000
+# Expose FastAPI port
+EXPOSE 8000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:3000/health || exit 1
+# Set environment variables (optional)
+ENV PYTHONUNBUFFERED=1
 
-# Run the application
-CMD ["python", "main.py"]
+# Run FastAPI app with uvicorn
+CMD ["uvicorn", "web.app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
