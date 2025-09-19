@@ -1,38 +1,24 @@
-# Use Python 3.11 slim image as base
 FROM python:3.11-slim
 
-# Set working directory
 WORKDIR /app
 
-# Install system dependencies (for yt-dlp and potential audio processing)
-RUN apt-get update && apt-get install -y \
+# Install system deps quickly with cache
+RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && pip install --no-cache-dir --upgrade pip
 
-# Copy requirements first to leverage Docker layer caching
+# Copy and install Python deps with better caching
 COPY requirements.txt .
-
-# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the application code
+# Copy app
 COPY . .
-
-# Create downloads directory
 RUN mkdir -p downloads
 
-# Expose port for web interface (FastAPI default)
-EXPOSE 8000
-
-# Set environment variables
-ENV PYTHONPATH=/app
-ENV PYTHONUNBUFFERED=1
-
-# Create a non-root user for security
-RUN useradd --create-home --shell /bin/bash app && \
-    chown -R app:app /app
+# Security
+RUN useradd --create-home app && chown -R app:app /app
 USER app
 
-# Command to run the application
+EXPOSE 8000
 CMD ["python", "main.py"]
